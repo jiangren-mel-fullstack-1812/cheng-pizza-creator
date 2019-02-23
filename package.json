@@ -29,6 +29,7 @@
     "migrate": "node ./dist/src/migrate",
     "prestart": "npm run build",
     "start": "node .",
+    "startmon": "nodemon .",
     "prepublishOnly": "npm run test"
   },
   "repository": {
@@ -53,7 +54,8 @@
     "@loopback/rest": "^1.5.3",
     "@loopback/rest-explorer": "^1.1.6",
     "@loopback/service-proxy": "^1.0.6",
-    "loopback-connector-mongodb": "^3.9.2"
+    "loopback-connector-mongodb": "^3.9.2",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
     "@loopback/build": "^1.2.0",

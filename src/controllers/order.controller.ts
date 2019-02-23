@@ -1,130 +1,141 @@
 /* tslint:disable:no-any */
-import {operation, param, requestBody} from '@loopback/rest';
-import {Order} from '../models/order.model';
+import { operation, param, requestBody } from '@loopback/rest';
+import { Order } from '../models/order.model';
+import { OrderRepository } from '../repositories/order.repository';
+import { reporters } from 'mocha';
+import {
+  Count,
+  CountSchema,
+  Filter,
+  repository,
+  Where,
+} from '@loopback/repository';
 
 /**
  * The controller class is generated from OpenAPI spec with operations tagged
  * by OrderController
- * 
+ *
  */
 export class OrderController {
-  constructor() {}
-
+  constructor(
+    @repository(OrderRepository)
+    public orderRepository: OrderRepository,
+  ) { }
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param where 
+   * @param where
    * @returns Order model count
    */
   @operation('get', '/orders/count')
-  async count(@param({name: 'where', in: 'query'}) where: {
-  
-}): Promise<{
-  count?: number;
-}> {
+  async count(@param({ name: 'where', in: 'query' }) where: {
+
+  }): Promise<{
+    count?: number;
+  }> {
     throw new Error('Not implemented');
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param requestBody 
-   * @param id 
+   * @param requestBody
+   * @param id
    */
   @operation('put', '/orders/{id}')
-  async replaceById(@requestBody() requestBody: Order, @param({name: 'id', in: 'path'}) id: number): Promise<any> {
+  async replaceById(@requestBody() requestBody: Order, @param({ name: 'id', in: 'path' }) id: number): Promise<any> {
     throw new Error('Not implemented');
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param requestBody 
-   * @param id 
+   * @param requestBody
+   * @param id
    */
   @operation('patch', '/orders/{id}')
-  async updateById(@requestBody() requestBody: Order, @param({name: 'id', in: 'path'}) id: number): Promise<any> {
+  async updateById(@requestBody() requestBody: Order, @param({ name: 'id', in: 'path' }) id: number): Promise<any> {
     throw new Error('Not implemented');
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param id 
+   * @param id
    * @returns Order model instance
    */
   @operation('get', '/orders/{id}')
-  async findById(@param({name: 'id', in: 'path'}) id: number): Promise<Order> {
-    throw new Error('Not implemented');
+  async findById(@param({ name: 'id', in: 'path' }) id: string): Promise<Order> {
+    return this.orderRepository.findById(id);
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param id 
+   * @param id
    */
   @operation('delete', '/orders/{id}')
-  async deleteById(@param({name: 'id', in: 'path'}) id: number): Promise<any> {
+  async deleteById(@param({ name: 'id', in: 'path' }) id: number): Promise<any> {
     throw new Error('Not implemented');
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param requestBody 
+   * @param requestBody
    * @returns Order model instance
    */
   @operation('post', '/orders')
   async create(@requestBody() requestBody: Order): Promise<Order> {
-    throw new Error('Not implemented');
+    return this.orderRepository.create(requestBody);
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param requestBody 
-   * @param where 
+   * @param requestBody
+   * @param where
    * @returns Order PATCH success count
    */
   @operation('patch', '/orders')
-  async updateAll(@requestBody() requestBody: Order, @param({name: 'where', in: 'query'}) where: {
-  
-}): Promise<{
-  count?: number;
-}> {
+  async updateAll(@requestBody() requestBody: Order, @param({ name: 'where', in: 'query' }) where: {
+
+  }): Promise<{
+    count?: number;
+  }> {
     throw new Error('Not implemented');
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param filter 
+   * @param filter
    * @returns Array of Order model instances
    */
   @operation('get', '/orders')
-  async find(@param({name: 'filter', in: 'query'}) filter: {
-  where?: {
-  
-};
-  fields?: {
-  id?: boolean;
-  customer?: boolean;
-  toppings?: boolean;
-  status?: boolean;
-};
-  offset?: number;
-  limit?: number;
-  skip?: number;
-  order?: string[];
-}): Promise<Order[]> {
+  async find(@param({ name: 'filter', in: 'query' }) filter: {
+    where?: {
+
+    };
+    fields?: {
+      id?: boolean;
+      customer?: boolean;
+      toppings?: boolean;
+      status?: boolean;
+    };
+    offset?: number;
+    limit?: number;
+    skip?: number;
+    order?: string[];
+  }): Promise<Order[]> {
     throw new Error('Not implemented');
   }
 

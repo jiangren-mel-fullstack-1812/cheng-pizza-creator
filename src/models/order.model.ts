@@ -1,45 +1,28 @@
-/* tslint:disable:no-any */
 import { Entity, model, property } from '@loopback/repository';
-import { Topping } from './topping.model';
+import { Topping } from '../models/topping.model';
 
-/**
- * The model class is generated from OpenAPI schema - Order
- * Order
- */
-@model({ name: 'Order' })
+@model()
 export class Order extends Entity {
-  constructor(data?: Partial<Order>) {
-    super();
-    if (data != null && typeof data === 'object') {
-      Object.assign(this, data);
-    }
-  }
-
-  /**
-   *
-   */
-  @property({ name: 'id' })
+  @property({
+    type: 'string',
+    id: true,
+  })
   id?: string;
 
-  /**
-   *
-   */
-  @property({ name: 'customer', required: true })
-  customer: {
-
-  };
-
-  /**
-   *
-   */
-  @property.array(Topping, { name: 'toppings' })
+  @property({
+    type: 'array',
+    itemType: 'object',
+    required: true,
+  })
   toppings: Topping[];
 
-  /**
-   *
-   */
-  @property({ name: 'status' })
+  @property({
+    type: 'string',
+  })
   status?: string;
 
-}
 
+  constructor(data?: Partial<Order>) {
+    super(data);
+  }
+}
