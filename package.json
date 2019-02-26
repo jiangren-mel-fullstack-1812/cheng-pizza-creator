@@ -54,15 +54,15 @@
     "@loopback/rest": "^1.5.3",
     "@loopback/rest-explorer": "^1.1.6",
     "@loopback/service-proxy": "^1.0.6",
-    "loopback-connector-mongodb": "^3.9.2",
-    "nodemon": "^1.18.10"
-  },
-  "devDependencies": {
     "@loopback/build": "^1.2.0",
     "@loopback/testlab": "^1.0.4",
     "@loopback/tslint-config": "^2.0.0",
-    "@types/node": "^10.12.27",
+    "loopback-connector-mongodb": "^3.9.2",
     "tslint": "^5.12.0",
     "typescript": "^3.3.3333"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.27",
+    "nodemon": "^1.18.10"
   }
 }
