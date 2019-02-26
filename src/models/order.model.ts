@@ -1,5 +1,5 @@
 import { Entity, model, property } from '@loopback/repository';
-import { Topping } from '../models/topping.model';
+import { OrderItem } from '../models/order-item.model';
 
 @model()
 export class Order extends Entity {
@@ -9,12 +9,10 @@ export class Order extends Entity {
   })
   id?: string;
 
-  @property({
-    type: 'array',
-    itemType: 'object',
-    required: true,
+  @property.array(OrderItem, {
+    name: 'orderItems'
   })
-  toppings: Topping[];
+  orderItems: OrderItem[];
 
   @property({
     type: 'string',
@@ -25,4 +23,5 @@ export class Order extends Entity {
   constructor(data?: Partial<Order>) {
     super(data);
   }
+
 }
