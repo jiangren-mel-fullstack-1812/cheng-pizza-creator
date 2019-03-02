@@ -17,12 +17,14 @@ import {
   requestBody,
 } from '@loopback/rest';
 import { Order } from '../models';
-import { OrderRepository } from '../repositories';
+import { OrderRepository, ToppingRepository } from '../repositories';
 
 export class OrderController {
   constructor(
     @repository(OrderRepository)
-    public orderRepository: OrderRepository
+    public orderRepository: OrderRepository,
+    @repository(ToppingRepository)
+    public toppingRepository: ToppingRepository
   ) { }
 
   @post('/orders', {
@@ -34,6 +36,16 @@ export class OrderController {
     },
   })
   async create(@requestBody() order: Order): Promise<Order> {
+    // get topping by orderitem.toppingId
+    // set topping.name to orderItem.toppingName;
+    for (let orderItem of order.orderItems) {
+      this.toppingRepository.findById(orderItem.toppingId).then((aTopping) => {
+        orderItem.toppingName = aTopping.name;
+        orderItem.price = aTopping.price;
+      });
+
+    }
+
     return await this.orderRepository.create(order);
   }
 

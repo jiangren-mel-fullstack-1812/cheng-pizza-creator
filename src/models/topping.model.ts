@@ -30,13 +30,12 @@ export class Topping extends Entity {
    *
    */
   @property({ name: 'price' })
-  price?: number;
+  price: number;
 
-  /**
-   *
-   */
-  @property({ name: 'quantity' })
-  quantity?: number;
+
+  @property({ name: 'type' })
+  type?: string;
+
 
 }
 
