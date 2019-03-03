@@ -16,15 +16,15 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import { Order, Topping } from '../models';
-import { OrderRepository, ToppingRepository } from '../repositories';
+import { Order, Product } from '../models';
+import { OrderRepository, ProductRepository } from '../repositories';
 
 export class OrderController {
   constructor(
     @repository(OrderRepository)
     public orderRepository: OrderRepository,
-    @repository(ToppingRepository)
-    public toppingRepository: ToppingRepository
+    @repository(ProductRepository)
+    public productRepository: ProductRepository
   ) { }
 
   @post('/orders', {
@@ -36,29 +36,23 @@ export class OrderController {
     },
   })
   async create(@requestBody() order: Order): Promise<Order> {
-    // get topping by orderitem.toppingId
-    // set topping.name to orderItem.toppingName;
+    // get product by orderitem.productId
+    // set product.name to orderItem.productName;
     console.log("1111111111111111");
     console.log(order);
-    let foundList: Promise<Topping>[] = [];
     for (let orderItem of order.orderItems) {
-      let foundTopping = this.toppingRepository.findById(orderItem.toppingId).then((aTopping) => {
-        orderItem.toppingName = aTopping.name;
-        orderItem.price = aTopping.price;
-        console.log("22222222222222");
-        return aTopping;
-      });
-      foundList.push(foundTopping);
+      let foundProduct = await this.productRepository.findById(orderItem.productId);
+      orderItem.productName = foundProduct.name;
+      orderItem.price = foundProduct.price;
+      console.log("22222222222222");
     }
 
     console.log("3333333333333333");
     console.log(order);
 
-    return Promise.all(foundList).then(toppings => {
-      console.log("444444444444444");
-      console.log(order);
-      return this.orderRepository.create(order);
-    });
+    console.log("444444444444444");
+    console.log(order);
+    return this.orderRepository.create(order);
   }
 
 

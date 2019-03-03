@@ -2,12 +2,12 @@
 import { Entity, model, property } from '@loopback/repository';
 
 /**
- * The model class is generated from OpenAPI schema - Topping
- * Topping
+ * The model class is generated from OpenAPI schema - Product
+ * Product
  */
-@model({ name: 'Topping' })
-export class Topping extends Entity {
-  constructor(data?: Partial<Topping>) {
+@model({ name: 'Product' })
+export class Product extends Entity {
+  constructor(data?: Partial<Product>) {
     super();
     if (data != null && typeof data === 'object') {
       Object.assign(this, data);

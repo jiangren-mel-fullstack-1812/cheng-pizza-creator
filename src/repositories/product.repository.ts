@@ -1,15 +1,15 @@
 import { DefaultCrudRepository, juggler } from '@loopback/repository';
-import { Topping } from '../models/topping.model';
+import { Product } from '../models/product.model';
 import { MlabDataSource } from '../datasources/mlab.datasource';
 import { inject } from '@loopback/core';
 
-export class ToppingRepository extends DefaultCrudRepository<
-  Topping,
-  typeof Topping.prototype.id
+export class ProductRepository extends DefaultCrudRepository<
+  Product,
+  typeof Product.prototype.id
   > {
   constructor(
     @inject('datasources.mlab') dataSource: MlabDataSource,
   ) {
-    super(Topping, dataSource);
+    super(Product, dataSource);
   }
 }

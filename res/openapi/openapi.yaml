@@ -361,7 +361,7 @@ paths:
                     type: boolean
                   customer:
                     type: boolean
-                  toppings:
+                  products:
                     type: boolean
                   status:
                     type: boolean
@@ -426,8 +426,8 @@ components:
           type: string
       required:
         - name
-    Topping:
-      title: Topping
+    Product:
+      title: Product
       properties:
         id:
           type: string
@@ -446,12 +446,12 @@ components:
           type: string
         customer:
           type: object
-        toppings:
+        products:
           type: array
           items:
-            $ref: '#/components/schemas/Topping'
+            $ref: '#/components/schemas/Product'
         status:
           type: string
       required:
         - customer
-        - toppings
+        - products

@@ -1,4 +1,4 @@
-import {Model, model, property} from '@loopback/repository';
+import { Model, model, property } from '@loopback/repository';
 
 @model()
 export class OrderItem extends Model {
@@ -6,12 +6,12 @@ export class OrderItem extends Model {
     type: 'string',
     required: true,
   })
-  toppingId: string;
+  productId: string;
 
   @property({
     type: 'string',
   })
-  toppingName?: string;
+  productName?: string;
 
   @property({
     type: 'number',
