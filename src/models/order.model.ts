@@ -9,6 +9,11 @@ export class Order extends Entity {
   })
   id?: string;
 
+  @property({
+    type: 'string',
+  })
+  userName: string;
+
   @property.array(OrderItem, {
     name: 'orderItems'
   })

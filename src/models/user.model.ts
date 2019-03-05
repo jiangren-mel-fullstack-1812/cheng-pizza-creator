@@ -5,9 +5,9 @@ import { Order } from '../models';
 export class User extends Entity {
   @property({
     type: 'string',
-    id: true,
+    id: true
   })
-  id?: string;
+  id: string;
 
   @property({
     type: 'string',

@@ -15,16 +15,19 @@ import {
   put,
   del,
   requestBody,
+  HttpErrors
 } from '@loopback/rest';
-import { Order, Product } from '../models';
-import { OrderRepository, ProductRepository } from '../repositories';
+import { Order, Product, OrderCreation } from '../models';
+import { OrderRepository, ProductRepository, UserRepository } from '../repositories';
 
 export class OrderController {
   constructor(
     @repository(OrderRepository)
     public orderRepository: OrderRepository,
     @repository(ProductRepository)
-    public productRepository: ProductRepository
+    public productRepository: ProductRepository,
+    @repository(UserRepository)
+    public userRepository: UserRepository
   ) { }
 
   @post('/orders', {
@@ -35,24 +38,24 @@ export class OrderController {
       },
     },
   })
-  async create(@requestBody() order: Order): Promise<Order> {
+  async create(@requestBody() orderRequest: OrderCreation): Promise<Order> {
     // get product by orderitem.productId
     // set product.name to orderItem.productName;
-    console.log("1111111111111111");
-    console.log(order);
-    for (let orderItem of order.orderItems) {
+    let newOrder = new Order();
+
+    let customer = await this.userRepository.findById(orderRequest.userName);
+    if (!customer) {
+      throw new HttpErrors.BadRequest("customer not found");
+    }
+    newOrder.userName = orderRequest.userName;
+    newOrder.orderItems = Object.assign([], orderRequest.orderItems);
+    for (let orderItem of newOrder.orderItems) {
       let foundProduct = await this.productRepository.findById(orderItem.productId);
       orderItem.productName = foundProduct.name;
       orderItem.price = foundProduct.price;
-      console.log("22222222222222");
     }
-
-    console.log("3333333333333333");
-    console.log(order);
-
-    console.log("444444444444444");
-    console.log(order);
-    return this.orderRepository.create(order);
+    newOrder.status = "ordered";
+    return this.orderRepository.create(newOrder);
   }
 
 
@@ -69,8 +72,9 @@ export class OrderController {
     },
   })
   async find(
-    @param.query.object('filter', getFilterSchemaFor(Order)) filter?: Filter,
+    @param.query.string('filter') filter?: Filter,
   ): Promise<Order[]> {
+    console.log(`find by customer id: ${filter}`);
     return await this.orderRepository.find(filter);
   }
 
