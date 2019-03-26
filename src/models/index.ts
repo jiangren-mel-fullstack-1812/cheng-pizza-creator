@@ -5,3 +5,6 @@ export * from './user.model';
 export * from './login-request.model';
 export * from './login-response.model';
 export * from './order-creation.model';
+export * from './bank-account.model';
+export * from './payment.model';
+export * from './user-ref.model';

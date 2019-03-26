@@ -1,0 +1,28 @@
+{
+  "name": "payment",
+  "connector": "rest",
+  "baseURL": "https://localhost:3001",
+  "crud": false,
+  "options": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "POST",
+        "url": "http://localhost:3001/payment",
+        "query": {
+          "payment": "{payment}"
+        }
+      },
+      "functions": {
+        "pay": [
+          "payment"
+        ]
+      }
+    }
+  ]
+}

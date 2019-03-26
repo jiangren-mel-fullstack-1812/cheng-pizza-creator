@@ -1,0 +1,27 @@
+{
+  "connector": "rest",
+  "options": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "POST",
+        "url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress",
+        "query": {
+          "format": "{format=json}",
+          "benchmark": "Public_AR_Current",
+          "address": "{address}"
+        }
+      },
+      "functions": {
+        "geocode": [
+          "address"
+        ]
+      }
+    }
+  ]
+}
